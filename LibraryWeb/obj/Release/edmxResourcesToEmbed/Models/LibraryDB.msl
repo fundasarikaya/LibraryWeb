@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MyLibraryModelStoreContainer" CdmEntityContainer="MyLibraryEntities">
+    <EntitySetMapping Name="Mylibrary">
+      <EntityTypeMapping TypeName="MyLibraryModel.Mylibrary">
+        <MappingFragment StoreEntitySet="Mylibrary">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="KitapAdi" ColumnName="KitapAdi" />
+          <ScalarProperty Name="Yazar" ColumnName="Yazar" />
+          <ScalarProperty Name="SayfaNo" ColumnName="SayfaNo" />
+          <ScalarProperty Name="Turu" ColumnName="Turu" />
+          <ScalarProperty Name="Yayinevi" ColumnName="Yayinevi" />
+          <ScalarProperty Name="AldigimTarih" ColumnName="AldigimTarih" />
+          <ScalarProperty Name="Okundu" ColumnName="Okundu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

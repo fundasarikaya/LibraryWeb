@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MyLibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Mylibrary">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+    <Property Name="KitapAdi" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+    <Property Name="Yazar" MaxLength="40" FixedLength="false" Unicode="true" Type="String" />
+    <Property Name="SayfaNo" Type="Int32" />
+    <Property Name="Turu" MaxLength="30" FixedLength="false" Unicode="true" Type="String" />
+    <Property Name="Yayinevi" MaxLength="25" FixedLength="false" Unicode="true" Type="String" />
+    <Property Name="AldigimTarih" Precision="3" Type="DateTime" />
+    <Property Name="Okundu" Type="Boolean" />
+  </EntityType>
+  <EntityContainer Name="MyLibraryEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Mylibrary" EntityType="Self.Mylibrary" />
+  </EntityContainer>
+</Schema>

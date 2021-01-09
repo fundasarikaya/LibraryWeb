@@ -1,0 +1,51 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model LibraryWeb.Models.KitaplarModel
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Kitap Adı</th>
+            <th scope="col">Yazarı</th>
+            <th scope="col">Sayfa Numarası</th>
+            <th scope="col">Türü</th>
+            <th scope="col">Yayınevi</th>
+            <th scope="col">Alınan Tarih</th>
+            <th scope="col">Okundu mu?</th>
+            <th scope="col">İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Kitaplar)
+        {
+        <tr>
+            <td scope="row">@item.ID</td>
+            <td>@item.KitapAdi</td>
+            <td>@item.Yazar</td>
+            <td>@item.SayfaNo</td>
+            <td>@item.Turu</td>
+            <td>@item.Yayinevi</td>
+            <td>@item.AldigimTarih</td>
+            @if (item.Okundu == false)
+            {
+                <td>Okunmadı</td>
+            }
+            else
+            {
+                <td>Okundu</td>
+            }
+
+            <td>
+                <input type="button" class=" btn btn-danger " id="delete-row" data-id="@item.ID" value="Sil" />
+                <input type="button" name="guncelle" class="btn btn-info btn-update" id="btn-update" data-id="@item.ID" value="Güncelle" />
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+@Html.PagedListPager(Model.Kitaplar,page=>Url.Action("Index",new RouteValueDictionary
+{ //arama icin gerekli kısımlar
+    {"Page",page },
+    {"KitapAdi",Model.KitapAdi },
+    {"Yazar",Model.Yazar }
+}), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions {UpdateTargetId="ajax-main" }))

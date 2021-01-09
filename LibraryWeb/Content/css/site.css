@@ -1,0 +1,130 @@
+﻿
+body {
+    background-image: url("/Content/img/background.jpg");
+}
+
+.table {
+    box-shadow: 1px 4px 10px -4px blue;
+}
+.danger {
+    color: red;
+    font-weight: 700;
+    text-decoration: underline;
+}
+.ekle {
+    margin: 10% 0 10% 0;
+}
+.table thead th{
+    font-size:13px !important;
+}
+.table td, .table th {
+    font-size: 13px !important;
+}
+input {
+    font-size: 13px !important;
+}
+.searchbar {
+    margin: 5% 0 4% 0;
+    float: right;
+    position: relative;
+}
+
+thead {
+    background-color: white;
+}
+
+tbody {
+    background-color: #e6f7bb;
+    opacity: 0.9;
+}
+/*#region Dialog */
+.ui-dialog {
+    border: 1px solid #ffffff;
+    box-shadow: 1px 5px 9px 1px black;
+
+}
+.ui-dialog .ui-dialog-titlebar-close {
+    position: absolute;
+    right:5px;
+    top:5px;
+    border-radius:5px 5px 5px 5px;
+    box-shadow:1px 1px 1px 1px green;
+    color:white;
+    background-color:green;
+    font-size:11px;
+}
+.ui-dialog .ui-dialog-title {
+    font-weight:bold;
+    color:#345ccb;
+    margin-left:15px;
+    margin-top:15px;
+    font-size:20px;
+}
+/*#endregion*/
+/*#region switch*/
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+input:checked + .slider {
+    background-color: #28a745;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+/*#endregion*/
+.label{
+    font-size:12px !important;
+}
+.content{
+    margin:7px;
+}

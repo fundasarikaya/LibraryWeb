@@ -1,0 +1,133 @@
+﻿@model LibraryWeb.Models.KitaplarModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+@*İlk once ajaxbeginform ile ekleme işlemini gercekleştirdim
+    ingilizce olarak verdiim id vs ise ekleme işlemini dialog ile yaptıgım kısım*@
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <a href="/Home/Ekle" class="btn btn-success ekle" style="visibility:hidden">Kitap Ekle</a>
+            <input type="button" class="btn btn-success" value="Kitap Ekle" id="addwithdialog">
+        </div>
+        <div class="col-md-6 searchbar search-main">
+            @using (Ajax.BeginForm("Index", "Home", FormMethod.Post, new AjaxOptions { OnSuccess = "loadKitap" }, new { id = "frm-add" }))
+            {
+                <div class="row">
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(m => m.KitapAdi, new { @class = "form-control mr-sm-1", @id = "KitapAdiSearch", placeholder = "Kitap Adi" })
+                    </div>
+
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(m => m.Yazar, new { @class = "form-control mr-sm-1", @id = "YazarSearch", type = "search", placeholder = "Yazar" })
+                    </div>
+                    <input type="submit" value="Ara" name="submit" class="btn btn-success">
+                </div>
+            }
+        </div>
+    </div>
+    <div class="row" id="ajax-main">
+        @Html.Partial("_Kitaplar", @Model)
+    </div>
+    <div id="dialogadd" title="Kitap Ekle">
+        <div id="UserMessagee">
+        </div>
+        @using (Ajax.BeginForm("Ekle", "Home", FormMethod.Post, new AjaxOptions { OnSuccess = "success", LoadingElementId = "loading" }, new { id = "formadd" }))
+        //işlem başarılı gerceklerşirse success javascript calışacak
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.KitapList.ID, new { @id = "ID" })
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.ValidationMessageFor(m => m.KitapList.KitapAdi, "", new { @class = "danger" })
+                                <label for="exampleFormControlInput1" class="label">Kitap Adı</label>
+                                @Html.TextBoxFor(m => m.KitapList.KitapAdi, new { @class = "form-control", @id = "KitapAdi", name = "KitapAdi" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.ValidationMessageFor(m => m.KitapList.Yazar, "", new { @class = "danger" })
+                                <label for="exampleFormControlInput1" class="label">Yazar</label>
+                                @Html.TextBoxFor(m => m.KitapList.Yazar, new { @class = "form-control", @id = "Yazar", name = "Yazar" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1" class="label">Sayfa Numarası</label>
+                                @Html.TextBoxFor(m => m.KitapList.SayfaNo, new { @class = "form-control", type = "number", @id = "SayfaNo" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.ValidationMessageFor(m => m.KitapList.Turu, "", new { @class = "danger" })
+                                <label for="exampleFormControlInput1" class="label">Türü</label>
+                                @Html.TextBoxFor(m => m.KitapList.Turu, new { @class = "form-control", @id = "Turu" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.ValidationMessageFor(m => m.KitapList.Yayinevi, "", new { @class = "danger" })
+                                <label for="exampleFormControlInput1" class="label">Yayınevi</label>
+                                @Html.TextBoxFor(m => m.KitapList.Yayinevi, new { @class = "form-control", @id = "Yayinevi" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1" class="label">Aldığım Tarih</label>
+                                @Html.TextBoxFor(m => m.KitapList.AldigimTarih, new { @class = "form-control", @id = "AldigimTarih" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            @*<div class="form-check">*@
+                            @*<input class="form-check-input" name="OkunduMu" type="checkbox" value="0" id="OkunduMu">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Okundu mu?
+                                </label>*@
+
+                            @*</div>*@
+                            <label for="exampleFormControlInput1" class="label">Okundu Mu</label>
+                            <label class="switch">
+                                <input type="checkbox" id="OkunduMu" checked>
+                                <span class="slider round"></span>
+                                <input type="hidden" name="okundumu" id="okundumu" value="False" />
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="submit" name="Kaydet" value="Kaydet" class="btn btn-success" />
+                        </div>
+                    </div>
+
+                    <div id="loading" style="display:none;">
+                        Kaydediliyor...
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script type="text/javascript">
+    function loadKitap(result) {
+        $("#ajax-main").html(result);
+    }
+</script>
+<script type="text/javascript">
+    function success(result) {
+        if (result.IsSuccess == true) {
+            $("#formadd")[0].reset();
+        }
+        //result burada bir parametredir ve jsonmodelimiz olmuş olur
+        $("#UserMessagee").html(result.UserMessage);
+    }
+</script>

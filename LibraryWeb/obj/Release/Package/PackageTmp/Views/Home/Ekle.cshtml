@@ -1,0 +1,88 @@
+﻿@model LibraryWeb.Models.KitaplarListe
+@{
+    ViewBag.Title = "Ekle";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>Kitap Ekle</h2>
+<div id="UserMessage">
+
+</div>
+    @using (Ajax.BeginForm("Ekle", "Home", FormMethod.Post, new AjaxOptions { OnSuccess = "successs", LoadingElementId = "loading" }))
+    //işlem başarılı gerceklerşirse success javascript calışacak
+    {
+       
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Kitap Adı</label>
+                            @Html.TextBoxFor(m => m.KitapAdi, new { @class = "form-control", @id = "exampleFormControlInput1" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Yazar</label>
+                            @Html.TextBoxFor(m => m.Yazar, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Sayfa Numarası</label>
+                            @Html.TextBoxFor(m => m.SayfaNo, new { @class = "form-control", type = "number" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Türü</label>
+                            @Html.TextBoxFor(m => m.Turu, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Yayınevi</label>
+                            @Html.TextBoxFor(m => m.Yayinevi, new { @class = "form-control"})
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Aldığım Tarih</label>
+                            @Html.TextBoxFor(m => m.AldigimTarih, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" name="Okundu" type="checkbox" value="0" id="defaultCheck1">
+                            <label class="form-check-label" for="defaultCheck1">
+                                Okundu mu?
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="submit" name="Ekle" value="Ekle" class="btn btn-success" />
+                    </div>
+                    <div class="col-md-6">
+                        <a href="/Home/Index" class="btn btn-info">Geri</a>
+                    </div>
+                </div>
+
+                <div id="loading" style="display:none;">
+                    Kaydediliyor...
+                </div>
+            </div>
+    }
+<script type="text/javascript">
+    function successs(result) {
+        if (result.IsSuccess == true) {
+            $("form")[0].reset();
+        }
+        //result burada bir parametredir ve jsonmodelimiz olmuş olur
+        $("#UserMessage").html(result.UserMessage);
+    }
+</script>
